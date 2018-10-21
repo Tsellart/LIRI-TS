@@ -15,7 +15,7 @@ var name = process.argv[3];
 var divider = 
 "\n----------------------------------------------------------\n\n";
 
-function concert () {
+function() {
     switch(command) {
         case "concert-this":
     }
@@ -48,24 +48,42 @@ function concert () {
         date = moment(date).format("MM/DD/YYYY");
         console.log("Date: " + date);
         fs.appendFile("log.txt", "Date: " + date + divider);
-        
+
     });
+
+    break;
+
+    switch(command) {
+
     
-}
+        case "spotify-this-song":
 
-this.searchSong = function(command) {
-        var Spotify = require('node-spotify-api');
- 
-        var spotify = new Spotify(keys.spotify);
-         
-        spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
-          if (err) {
+        if (!name) {
+
+            name = "Ace of Bass";
+
+
+        }
+
+        fs.appendFile("log.txt", name + divider);
+
+        spotify.search({ type: 'track', query: name }, function(err, data) {
+            if (err) {
             return console.log('Error occurred: ' + err);
-          }
-         
-    console.log(data); 
-    });
-
+        }
         
-}
+        var info = data.tracks.items
+        console.log(info);
 
+        for (var j = 0; j < artistsInfo.length; j++) {
+            console.log("Artist: " + artistsInfo[j].name);
+            console.log("Song Name: " + trackName);
+            console.log("Preview of Song: " + preview);
+            console.log("Album Name: " + albumObject.name);
+            consoe.log("-----------------");
+
+            fs.appendFile("log.txt", "Artist: " + artistsInfo[j].name + "\nSong Name: " + trackName + "\nPreview of Song: " + preview + "\nAlbum Name: " + albumObject.name + divider);
+
+        };
+    }
+}
